@@ -12,7 +12,7 @@ console.log("Logging the customModule object.");
 console.log(customModule);
 
 console.log("Logging the private-caller method.");
-console.log("Return value: '" + customModule.aPrivateMethodCaller() + "'");
+console.log("Return value: '" + customModule.privateCaller() + "'");
 
 console.log("<------->");
 
