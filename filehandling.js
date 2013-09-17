@@ -8,6 +8,8 @@ var fs = require("fs"),
 	syncFile = "files/sample_sync.txt",
 	asyncFile = "files/sample_async.txt";
 
+console.log("<------->");
+
 /* Writing files */
 console.log("Writing files...");
 
@@ -31,18 +33,36 @@ fs.writeFile(asyncFile, "Hello world (asynchronously)!", function(error) {
 });
 console.log("Continuing execution while writing to " + asyncFile + " asynchronously.");
 
+console.log("<------->");
+
 /* Reading files */
 console.log("Reading files...");
 
 //Synchronously
 /* The .readFileSync method will pause execution
 until a designated file has been read completely */
+console.log("Reading " + syncFile + " synchronously.")
+var fileContents = fs.readFileSync(syncFile);
+console.log(syncFile + " contents: " + fileContents);
+console.log("Finished reading " + syncFile + " synchronously.");
 
 //Asynchronously
 /* The .readFile method supplies the contents of a designated file to a callback function */
+console.log("Reading " + asyncFile + " asynchronously.");
+fs.readFile(asyncFile, function(error, data) {
+	if(error) {
+		console.log("Could not read " + asyncFile + " asynchronously.");
+	} else {
+		console.log(asyncFile + " contents: " + data);
+	}
+});
+console.log("Continuing execution while reading " + asyncFile + " asynchronously.");
 
+console.log("<------->");
 
 /* Watching files */
 console.log("Watching files...");
+
+console.log("<------->");
 
 console.log("End");
