@@ -6,7 +6,8 @@ makes a variety of file-handling methods avilable to the server
 */
 var fs = require("fs"),
 	syncFile = "files/sample_sync.txt",
-	asyncFile = "files/sample_async.txt";
+	asyncFile = "files/sample_async.txt",
+	watchFile = "files/sample_watch.txt";
 
 console.log("<------->");
 
@@ -62,6 +63,22 @@ console.log("<------->");
 
 /* Watching files */
 console.log("Watching files...");
+
+/* The .watchFile method causes a callback function to be triggered
+whenever a designated file is altered. */
+console.log("Creating " + watchFile + " synchronously.");
+fs.writeFileSync(watchFile, "Hello world (watch me)!");
+console.log("Watching " + watchFile + ".");
+fs.watchFile(watchFile, function(current, previous) {
+	console.log(watchFile + " previous data:");
+	console.log(previous);
+	console.log(watchFile + " current data:");
+	console.log(current);
+	console.log(watchFile + " size change: " + (current.size - previous.size) + ".");
+});
+console.log("Changing " + watchFile + " synchronously.");
+fs.writeFileSync(watchFile, "Hello world (watch me, changed)!");
+console.log("Finished changing " + watchFile + " synchronously.");
 
 console.log("<------->");
 
