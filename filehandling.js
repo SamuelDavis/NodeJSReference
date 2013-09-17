@@ -5,9 +5,9 @@ The File System module (http://nodejs.org/api/fs.html)
 makes a variety of file-handling methods avilable to the server
 */
 var fs = require("fs"),
-	syncFile = "files/sample_sync.txt",
-	asyncFile = "files/sample_async.txt",
-	watchFile = "files/sample_watch.txt";
+	syncFile = "files/runtime_sample_sync.txt",
+	asyncFile = "files/runtime_sample_async.txt",
+	watchFile = "files/runtime_sample_watch.txt";
 
 console.log("<------->");
 
