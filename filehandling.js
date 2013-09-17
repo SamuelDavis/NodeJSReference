@@ -5,7 +5,8 @@ The File System module (http://nodejs.org/api/fs.html)
 makes a variety of file-handling methods avilable to the server
 */
 var fs = require("fs"),
-	sampleFile = "files/sample.txt";
+	syncFile = "files/sample_sync.txt",
+	asyncFile = "files/sample_async.txt";
 
 /* Writing files */
 console.log("Writing files...");
@@ -13,22 +14,22 @@ console.log("Writing files...");
 //Synchronously
 /* The .writeFileSync method will pause execution until a supplied string
 has been completely written to a designated file */
-console.log("Writing to " + sampleFile + " synchronously.");
-fs.writeFileSync(sampleFile, "Hello world (synchronously)!");
-console.log("Finished writing to " + sampleFile + " synchronously.");
+console.log("Writing to " + syncFile + " synchronously.");
+fs.writeFileSync(syncFile, "Hello world (synchronously)!");
+console.log("Finished writing to " + syncFile + " synchronously.");
 
 //Asynchronously
 /* The .writeFile method will write a supplied string to a designated file
 without pausing execution and triggers a callback function when finished */
-console.log("Writing to " + sampleFile + " asynchronously.");
-fs.writeFile(sampleFile, "Hello world (asynchronously)!", function(error) {
+console.log("Writing to " + asyncFile + " asynchronously.");
+fs.writeFile(asyncFile, "Hello world (asynchronously)!", function(error) {
 	if(error) {
-		console.log("Could not write to " + sampleFile + ".");
+		console.log("Could not write to " + asyncFile + ".");
 	} else {
-		console.log("Finished writing to " + sampleFile + " asynchronously.");
+		console.log("Finished writing to " + asyncFile + " asynchronously.");
 	}
 });
-console.log("Continuing execution while writing to " + sampleFile + " asynchronously.");
+console.log("Continuing execution while writing to " + asyncFile + " asynchronously.");
 
 /* Reading files */
 console.log("Reading files...");
