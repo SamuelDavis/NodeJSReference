@@ -45,11 +45,15 @@ var server = http.createServer(function(request, response) {
 	});
 });
 
+console.log("<------->");
+
 //Start server (listening for HTTP requests)
 /* The server.listen method assigns the server a port and host to listen for HTTP requests */
 console.log("Setting server to listen at " + config.host + ":" + config.port);
 server.listen(config.port, config.host, function() {
 	console.log("Listening at " + config.host + ":" + config.port);
 });
+
+console.log("<------->");
 
 console.log("End");
