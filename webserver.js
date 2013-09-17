@@ -21,7 +21,28 @@ console.log("Creating Node.js server.");
 request and response objects to handle HTTP requests sent to the server
 from the browser. */
 var server = http.createServer(function(request, response) {
-	console.log("Received request: " + request.url);
+	/* Handle routing */
+	if(request.url === "/") {
+		//If no request url is given, assume the index page should be loaded
+		request.url += "index.html";
+	}
+	console.log("Attempting to load a view matching the request url: " + request.url);
+	fs.readFile("views" + request.url, function(error, data) {
+		/* Dependent upon the request, write text to the screen using the response object.
+		the .end method informs the server that it should send the response to the browser.
+		If a string is supplied to the .end method, it will call response.write method and
+		write that string to the browser. In this case, the contents of the appropriate
+		views/ file is the string */
+		if(error) {
+			console.log("There was an error loading views" + request.url + ": " + error);
+			response.writeHead(404, { "Content-type":"text/html" });
+			response.end(fs.readFileSync("views/404.html"));
+		} else {
+			response.writeHead(200, { "Content-type":"text/html" });
+			console.log("Serving up views" + request.url + " content.");
+			response.end(data);
+		}
+	});
 });
 
 //Start server (listening for HTTP requests)
@@ -30,6 +51,5 @@ console.log("Setting server to listen at " + config.host + ":" + config.port);
 server.listen(config.port, config.host, function() {
 	console.log("Listening at " + config.host + ":" + config.port);
 });
-
 
 console.log("End");
