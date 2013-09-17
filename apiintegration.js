@@ -58,3 +58,7 @@ to generate an array of repository names and descriptions */
 getRepos(username, function(repos) {
 	console.log(repos);
 });
+
+console.log("<------->");
+
+console.log("End");
