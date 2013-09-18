@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Websockets Example</title>
+</head>
+<body>
+	<h3>This is an example of Socket.IO</h3>
+	<div id="scripts">
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script>
+			var socket = io.connect('http://127.0.0.1:1337');
+			//Listen for a 'connected' event sent from the server
+			socket.on('connected', function (data) {
+				console.log(data);
+				//Send a 'frontendEvent' event to the server
+				socket.emit("frontendEvent", {
+					"source": "frontend",
+					"greeting": "Hello server!"
+				});
+			});
+		</script>
+	</div>
+</body>
+</html>
