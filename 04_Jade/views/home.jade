@@ -1,0 +1,58 @@
+//Grab the contents of another file (mixins.jade) and paste it here
+include mixins
+
+//Impelment a style tag
+style
+	#nav {
+		background: lightblue
+	}
+
+//All text following the - is parsed as JavaScript
+- var name = "A_Name";
+- var fn = function() { return "fish"; };
+
+h1 Hello, Express!
+//All text following the = is parsed as JavaScript
+h2= title
+
+//Apply an id of "nav" and the "classOne" and "classTwo" classes to a ul element
+ul#nav.classOne.classTwo
+	li One
+	//The #{variable} syntax inserts JavaScript into a line of text
+	li #{name} #{ 1 + 2 }
+	li Three
+	li= fn()
+		br
+		//Attributes are applied to elements inside of parenthesis
+		a(href="/other", data-test="test") Go to Other
+
+//A period after an element treats all lines (identified by their indentation) as part of that element
+p.
+	This is a
+	multiline
+	parargaph.
+
+- if(name.length < 5) {
+	p #{name} has less than 5 characters.
+- } else {
+	p #{name} has more than 5 characters.
+- }
+
+//Jade shorthand for the above JavaScript
+p
+	if name.length < 5
+		| Name has less than 5 characters.
+	else
+		| Name has more than 5 characters.
+
+- var myList = [{ a: "A", b: "B" }, { a: "C", b: "D" }, { a: "E", b: "F" }];
+//Iterate over a list using Jade shorthand
+ul
+	each item, i in myList
+		li #{i + 1}: #{item.a}, #{item.b}
+		mixin itemLi(item)
+
+- var obj = { name: "myObj" };
+//Include a file which uses the above object without having an explicit reference to it
+//(as though it were a partial)
+include includes/myPartial
