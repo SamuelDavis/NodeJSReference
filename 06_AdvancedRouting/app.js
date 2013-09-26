@@ -148,6 +148,41 @@ app.get("/viewArray/:elemIndex", loadElem, function(req, res) {
 	res.json({"Elem": req.elem });
 });
 
+/* Handling errors */
+//404
+app.use(function(req, res, next) {
+	res.send(404, "Page does not exist!");
+});
+
+//Define an endpoint for custom errors
+app.use(function(err, req, res, next) {
+	//Set the status code if it was provided in the error object (default to 404)
+	res.status(err.status || 404);
+	res.send(err.message);
+});
+
+var arr2 = ["z", "y", "x", "w", "v"];
+//Custom error response for bad data rather than missing pages
+app.get("/error/:arrIndex", function(req, res, next) {
+	//Get a handle on the array index request argument
+	arrIndex = parseInt(req.params.arrIndex, 10);
+
+	//Does the array have that index?
+	if(arrIndex < 0 || arrIndex >= arr2.length) {
+		//No? display error.
+		//calling next(); would pass the request to public/ and then to the 404 error
+		//Define an error object describing what went wrong
+		var err = new Error("Index " + arrIndex + " is out of range.");
+		//Set a custom error status
+		err.status = "Custom Error";
+		//Pass that error to the next() function to display that custom error
+		next(err);
+	} else {
+		//Yes? Display element at that index.
+		res.send("Element " + arrIndex + " is " + arr2[arrIndex]);
+	}
+});
+
 //Start the Express server
 http.createServer(app).listen(app.get("port"), function(){
   console.log("Express server listening on port " + app.get("port"));
